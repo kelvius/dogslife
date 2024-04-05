@@ -1,0 +1,3 @@
+<h1><%= @dog.name %></h1>
+<p><%= @dog.story %></p>
+<%= image_tag(@dog.photo_url, alt: @dog.name) if @dog.photo_url.present? %>

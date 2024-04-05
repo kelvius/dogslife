@@ -1,0 +1,24 @@
+<h1>Available Dogs for Adoption</h1>
+<%= form_with(url: dogs_path, method: :get) do |form| %>
+  <%= form.label :breed, 'Search by breed:' %>
+  <%= form.text_field :breed, value: params[:breed] %>
+
+  <%= form.submit "Search" %>
+<% end %>
+
+<% if @dogs.any? %>
+  <ul>
+    <% @dogs.each do |dog| %>
+      <li>
+        <%= link_to dog.name, dog_path(dog) %>
+        <p><%= dog.breed %></p>
+        <%= image_tag(dog.photo_url, alt: dog.name) if dog.photo_url.present? %>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= paginate @dogs %>
+<% else %>
+  <p>No dogs found matching your search criteria.</p>
+<% end %>
+

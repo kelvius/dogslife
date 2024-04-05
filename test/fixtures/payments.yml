@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  dog: one
+  payment_type: MyString
+  years_count: 1
+  amount: 9.99
+  status: MyString
+  transaction_date: 2024-04-04 13:32:38
+
+two:
+  user: two
+  dog: two
+  payment_type: MyString
+  years_count: 1
+  amount: 9.99
+  status: MyString
+  transaction_date: 2024-04-04 13:32:38
