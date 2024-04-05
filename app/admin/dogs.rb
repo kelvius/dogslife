@@ -1,5 +1,5 @@
 ActiveAdmin.register Dog do
-
+  filter :dog_list_id  # only if dog_list_id directly relates to a searchable field or association
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #

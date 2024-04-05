@@ -1,5 +1,5 @@
 class Dog < ApplicationRecord
-  has_one :dog_list
+  has_one :dog_lists
   has_many :reviews, dependent: :destroy
   has_many :payments
 
