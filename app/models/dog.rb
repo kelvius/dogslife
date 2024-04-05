@@ -3,7 +3,7 @@ class Dog < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :payments
 
-  validates :name, :breed, :story, :photo_url, presence: true
+  validates :name, :breed, :story, :photo_url, :dog_type, presence: true
   validates :available_for_adoption, inclusion: { in: [true, false] }
 
   scope :available, -> { where(available_for_adoption: true) }
