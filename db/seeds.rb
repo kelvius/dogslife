@@ -12,6 +12,8 @@
 Dog.destroy_all
 AdminUser.destroy_all
 User.destroy_all
+PageContent.destroy_all
+
 
 # Create an admin user for Active Admin
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') unless AdminUser.find_by(email: 'admin@example.com')
@@ -23,6 +25,20 @@ User.create!(
   password: 'password',
   password_confirmation: 'password'
 ) unless User.find_by(email: 'user@example.com')
+
+# Setup About and Contact page
+PageContent.create(title: 'About Us', content: 'Welcome to DogsLife, the ultimate haven for canine lovers and those looking to find a new furry friend to bring home. Established in 2018, DogsLife has been at the forefront of connecting dogs in need of a loving home with families and individuals who are ready to open their hearts to a new companion.
+
+With a passionate team of over 40 professionals from around the globe, we specialize in professional foster dog care and have successfully placed countless dogs into loving homes. At DogsLife, we believe that every dog deserves a second chance, and our mission is to provide them with the opportunity to live the life they deserve.
+
+Our platform offers a wide variety of dog breeds, ensuring that you find the perfect match for your lifestyle and preferences. From energetic puppies to calm and mature companions, our comprehensive list includes dogs of all sizes and personalities. Our expert team provides free consultations to help you find a dog that suits your environment, ensuring a seamless integration into your family.
+
+At DogsLife, we are more than just an adoption service; we are a community of dog enthusiasts dedicated to making a difference in the lives of these wonderful animals. Join us on this rewarding journey and find your perfect canine companion today!', page_type: 'about')
+
+PageContent.create(title: 'Contact Us', content: 'For any inquiries or assistance with the adoption process, feel free to contact us. Our team is available to answer your questions and provide the support you need. Reach out to us at +1 234 567 890, contact@dogslife.com, or visit us at 123 DogsLife Lane, Petville, PV 6789. Our office hours are 9:00 AM to 5:00 PM, Monday to Friday. We are closed on weekends and public holidays. You can also fill in our contact form on our website, and we will get back to you promptly.
+
+Thank you for choosing DogsLife. We look forward to helping you find your new best friend!', page_type: 'contact')
+
 
 # Seed some dogs
 # Dog.create!([

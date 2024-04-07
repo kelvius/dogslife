@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   # Health Check Route
   get "up" => "rails/health#show", as: :rails_health_check
 
+  #Route for static pages
+  get 'about', to: 'pages#about'
+  get 'contact', to: 'pages#contact'
+
   # Specify the controller for the user routes
   devise_for :users, controllers: {
     registrations: 'users/registrations'

@@ -6,19 +6,6 @@
 
 </head>
 <body>
-  <div class="navbar">
-    <%= link_to 'Home', root_path %>
-    <%= link_to 'About Us', '#' %>
-    <%= link_to 'Contact Us', '#' %>
-    <% if user_signed_in? %>
-      <%= link_to 'My Profile', '#' %>
-      <%= link_to 'Adopt a Dog', dogs_path %>
-      <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to 'Sign Up', new_user_registration_path %>
-      <%= link_to 'Login', new_user_session_path %>
-    <% end %>
-  </div>
 
   <div class="container">
     <h1>Welcome to DogsLife</h1>

@@ -10,6 +10,20 @@
 
   </head>
 
+  <header>
+  <%= link_to 'Home', root_path %>
+  <%= link_to 'About Us', about_path %>
+  <%= link_to 'Contact Us', contact_path %>
+  <% if user_signed_in? %>
+    <%= link_to 'My Profile', '#' %>
+    <%= link_to 'Adopt a Dog', dogs_path %>
+    <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to 'Sign Up', new_user_registration_path %>
+    <%= link_to 'Login', new_user_session_path %>
+  <% end %>
+</header>
+
   <body>
     <%= yield %>
   </body>

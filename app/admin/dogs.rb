@@ -1,19 +1,18 @@
 ActiveAdmin.register Dog do
   filter :dog_list_id  # only if dog_list_id directly relates to a searchable field or association
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  # permit_params :name, :breed, :story, :photo_url, :price, :available_for_adoption
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:name, :breed, :story, :photo_url, :price, :available_for_adoption]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
-  # filter :dog_list_id_eq
-  permit_params :name, :breed, :story, :photo_url, :price, :available_for_adoption
+
+  permit_params :name, :breed, :story, :photo_url, :price, :available_for_adoption, :dog_type
+
+  form do |f|
+    f.semantic_errors
+    f.inputs 'Dog Details' do
+      f.input :name
+      f.input :breed
+      f.input :story
+      f.input :photo_url
+      f.input :available_for_adoption, as: :boolean
+      f.input :dog_type, as: :select, collection: Dog::DOG_TYPES, include_blank: false
+    end
+    f.actions
+  end
 end
