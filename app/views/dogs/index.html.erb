@@ -2,13 +2,23 @@
 
 <%= form_with(url: dogs_path, method: :get) do |form| %>
   <div>
-    <%= form.label :breed, 'Search by breed:' %>
-    <%= form.text_field :breed, value: params[:breed] %>
-  </div>
+  <%= form.label :keyword, 'Search by keyword:' %>
+  <%= form.text_field :keyword, value: params[:keyword] %>
+</div>
 
   <div>
     <%= form.label :dog_type, 'Filter by type:' %>
-    <%= form.select :dog_type, ['Guard', 'Service', 'Herding', 'Companion'], { include_blank: 'Any Type' }, { value: params[:dog_type] } %>
+    <%= form.select :dog_type, ['Guard', 'Service', 'Herding', 'Companion'], { include_blank: 'Any Type' }, { value: params[:dog_type]}%>
+  </div>
+
+  <div>
+  <%= form.label :available_for_adoption, 'Available for Adoption:' %>
+  <%= form.select :available_for_adoption, [['Yes', true], ['No', false]], prompt: 'Select Availability'%>
+  </div>
+
+  <div>
+  <%= form.label :arrival_filter, 'Time Period:' %>
+  <%= form.select :arrival_filter, options_for_select([['All Time', 'all_time'], ['New Arrivals', 'new_arrivals']], selected: params[:arrival_filter]) %>
   </div>
 
   <%= form.submit "Search" %>
@@ -19,8 +29,9 @@
     <% @dogs.each do |dog| %>
       <li>
         <%= link_to dog.name, dog_path(dog) %>
-        <p>Breed: <%= dog.breed %></p>
-        <p>Type: <%= dog.dog_type %></p>
+        <p><%= dog.breed %> - <%= dog.dog_type %></p>
+        <p>Price: $<%= dog.price %>
+        <p>Available for adoption: <%= dog.available_for_adoption ? 'Yes' : 'No' %></p>
         <%= image_tag(dog.photo_url, alt: dog.name) if dog.photo_url.present? %>
       </li>
     <% end %>

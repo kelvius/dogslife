@@ -10,6 +10,7 @@ ActiveAdmin.register Dog do
       f.input :breed
       f.input :story
       f.input :photo_url
+      f.input :price
       f.input :available_for_adoption, as: :boolean
       f.input :dog_type, as: :select, collection: Dog::DOG_TYPES, include_blank: false
     end
