@@ -21,10 +21,16 @@
   <%= form.select :available_for_adoption, [['Yes', true], ['No', false]], prompt: 'Select Availability'%>
   </div>
 
-  <div>
-  <%= form.label :arrival_filter, 'Time Period:' %>
-  <%= form.select :arrival_filter, options_for_select([['All Time', 'all_time'], ['New Arrivals', 'new_arrivals']], selected: params[:arrival_filter]) %>
-  </div>
+  <%= form.label :filter_time_and_price , 'Time Period:' %>
+  <%= form.select :filter_time_and_price , options_for_select(
+      [
+          ['All Time', 'all_time'],
+          ['New Arrivals', 'new_arrivals'],
+          ['Recently Updated', 'recently_updated'],
+          ['Free Dogs', 'free_dogs']
+      ],
+      selected: params[:filter_time_and_price ]
+  ) %>
 
   <%= form.submit "Search" %>
 <% end %>
