@@ -4,6 +4,37 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <!-- Add the address field -->
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address %>
+  </div>
+
+  <!-- Add the province field -->
+  <div class="field">
+    <%= f.label :province %><br />
+    <%= f.select :province, options_for_select([
+      'Alberta',
+      'British Columbia',
+      'Manitoba',
+      'New Brunswick',
+      'Newfoundland and Labrador',
+      'Northwest Territories',
+      'Nova Scotia',
+      'Nunavut',
+      'Ontario',
+      'Prince Edward Island',
+      'Quebec',
+      'Saskatchewan',
+      'Yukon'
+    ]) %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
