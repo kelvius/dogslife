@@ -8,30 +8,23 @@
     <%= form.select :dog_type, ['Guard', 'Service', 'Herding', 'Companion'], { include_blank: 'Any Type' }, value: params[:dog_type] %>
   </div>
 
-<div>
-  <%= form.label :dog_type, 'Filter by type:' %>
-  <% ['Guard', 'Service', 'Herding', 'Companion'].each do |type| %>
-  <%= button_tag type, type: 'submit', name: 'dog_type', value: type, class: 'dog-type-button' %>
-  <% end %>
-  <%= button_tag 'Any Type', type: 'submit', name: 'dog_type', value: '', class: 'dog-type-button' %>
-</div>
-
   <div>
-  <%= form.label :available_for_adoption, 'Available for Adoption:' %>
-  <%= form.select :available_for_adoption, [['Yes', true], ['No', false]], prompt: 'Select Availability'%>
+    <%= form.label :available_for_adoption, 'Available for Adoption:' %>
+    <%= form.select :available_for_adoption, [['Yes', true], ['No', false]], prompt: 'Select Availability' %>
   </div>
 
-  <%= form.label :filter_time_and_price , 'Time Period:' %>
-  <%= form.select :filter_time_and_price , options_for_select(
-      [
-          ['All Time', 'all_time'],
-          ['New Arrivals', 'new_arrivals'],
-          ['Recently Updated', 'recently_updated'],
-          ['Free Dogs', 'free_dogs']
-      ],
-      selected: params[:filter_time_and_price ]
-  ) %>
-
+  <div>
+    <%= form.label :filter_time_and_price, 'Time Period:' %>
+    <%= form.select :filter_time_and_price, options_for_select(
+        [
+            ['All Time', 'all_time'],
+            ['New Arrivals', 'new_arrivals'],
+            ['Recently Updated', 'recently_updated'],
+            ['Free Dogs', 'free_dogs']
+        ],
+        selected: params[:filter_time_and_price]
+    ) %>
+  </div>
 
   <%= form.submit "Search" %>
 <% end %>
@@ -42,9 +35,16 @@
       <li>
         <%= link_to dog.name, dog_path(dog) %>
         <p><%= dog.breed %> - <%= dog.dog_type %></p>
-        <p>Price: $<%= dog.price %>
+        <p>Price: $<%= dog.price %></p>
         <p>Available for adoption: <%= dog.available_for_adoption ? 'Yes' : 'No' %></p>
-        <%= image_tag(dog.photo_url, alt: dog.name) if dog.photo_url.present? %>
+        <%= image_tag(dog.photo_url, alt: dog.name, width: 200, height: 200) if dog.photo_url.present? %>
+
+        <% if dog.available_for_adoption %>
+          <%= form_with(url: add_to_cart_path, method: :post) do |f| %>
+            <%= f.hidden_field :dog_id, value: dog.id %>
+            <%= f.submit "Add to Cart" %>
+          <% end %>
+        <% end %>
       </li>
     <% end %>
   </ul>

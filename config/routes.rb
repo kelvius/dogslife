@@ -16,14 +16,19 @@ Rails.application.routes.draw do
     sign_up: 'register'
   }
 
-
+  # Cart routes
+  post 'cart/add', to: 'cart#add_to_cart', as: 'add_to_cart'
+  get 'cart', to: 'cart#show', as: 'cart'
+  delete 'cart/remove/:dog_id', to: 'cart#remove_from_cart', as: 'remove_from_cart'
 
   # Active Admin Routes
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
   # Dog Routes
-  resources :dogs, only: [:index, :show]
+  resources :dogs, only: [:index, :show]do
+  post 'add_to_cart', on: :member
+end
 
   # You can define the root path route if needed
   root to: 'home#index'
