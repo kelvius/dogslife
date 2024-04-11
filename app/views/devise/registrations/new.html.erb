@@ -11,28 +11,27 @@
   <!-- Add the address field -->
   <div class="field">
     <%= f.label :address %><br />
-    <%= f.text_field :address %>
+    <%= f.text_field :address, required: true %>
   </div>
 
-  <!-- Add the province field -->
   <div class="field">
-    <%= f.label :province %><br />
-    <%= f.select :province, options_for_select([
-      'Alberta',
-      'British Columbia',
-      'Manitoba',
-      'New Brunswick',
-      'Newfoundland and Labrador',
-      'Northwest Territories',
-      'Nova Scotia',
-      'Nunavut',
-      'Ontario',
-      'Prince Edward Island',
-      'Quebec',
-      'Saskatchewan',
-      'Yukon'
-    ]) %>
-  </div>
+  <%= f.label :province %><br />
+  <%= f.select :province, options_for_select([
+    'Alberta',
+    'British Columbia',
+    'Manitoba',
+    'New Brunswick',
+    'Newfoundland and Labrador',
+    'Northwest Territories',
+    'Nova Scotia',
+    'Nunavut',
+    'Ontario',
+    'Prince Edward Island',
+    'Quebec',
+    'Saskatchewan',
+    'Yukon'
+  ], selected: f.object.province), required: true %>
+</div>
 
   <div class="field">
     <%= f.label :password %>

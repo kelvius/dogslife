@@ -25,6 +25,8 @@ AdminUser.create!(email: 'admin@example.com', password: 'password', password_con
 User.create!(
   username: 'testuser',
   email: 'user@example.com',
+  address: '330 poplar ave',
+  province: 'Manitoba',
   password: 'password',
   password_confirmation: 'password'
 ) unless User.find_by(email: 'user@example.com')
