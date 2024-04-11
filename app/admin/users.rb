@@ -1,5 +1,7 @@
 ActiveAdmin.register User do
   filter :email
+  permit_params :email, :password, :password_confirmation, :address, :province # Add other fields as necessary
+
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
