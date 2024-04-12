@@ -1,0 +1,22 @@
+<p>Show payment</p>
+<ul>
+<% cart.each do |item| %>
+  <li>
+    <strong><%= item["name"] %></strong> - <%= item["breed"] %> - <%= item["dog_type"] %> <br>
+    Price: $<%= item["price"] %> <br>
+    <br>Adoption Duration: <%= item["adoption_years"] %> year(s)</br>
+  </li>
+<% end %>
+</ul>
+<hr />
+Subtotal: <%= sub_total %>
+GST: <%=  %>
+PST: <%= pst_charged %>
+<hr />
+Total: <%= total %>
+
+<%= form_tag(payment_create_path, method: :post) do %>
+  <%= button_tag(type: 'submit', class: '') do %>
+    Payment
+  <% end %>
+<% end %>

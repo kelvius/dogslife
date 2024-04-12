@@ -3,7 +3,6 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
   validates :address, presence: true
-  validates :province, presence: true
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -11,7 +10,11 @@ class User < ApplicationRecord
   has_many :payments
   has_many :reviews, through: :dogs
 
-  def self.ransackable_attributes(auth_object = nil)
-    super + ['custom_method']
-  end
+  # def self.ransackable_attributes(auth_object = nil)
+  #   super + ['custom_method']
+  # end
+    def self.ransackable_attributes(auth_object = nil)
+      ["address", "contact_number", "created_at", "email", "encrypted_password", "id", "id_value", "password_digest", "payment_type", "remember_created_at", "reset_password_sent_at", "reset_password_token", "updated_at", "username"]
+    end
+
 end
