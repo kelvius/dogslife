@@ -9,12 +9,20 @@
   </div>
 
   <div>
+    <%= form.label :dog_type, 'Dog Type:' %>
+    <%= button_tag 'All', name: 'dog_type', value: '', class: 'dog-type-button', data: { behavior: 'submit-on-click' } %>
+    <% ['Guard', 'Service', 'Herding', 'Companion'].each do |type| %>
+      <%= button_tag type, name: 'dog_type', value: type, class: 'dog_type_button', data: { behavior: 'submit-on-click' } %>
+    <% end %>
+  </div>
+
+  <div>
     <%= form.label :available_for_adoption, 'Available for Adoption:' %>
     <%= form.select :available_for_adoption, [['Yes', true], ['No', false]], prompt: 'Select Availability' %>
   </div>
 
   <div>
-    <%= form.label :filter_time_and_price, 'Time Period:' %>
+    <%= form.label :filter_time_and_price, 'Filters:' %>
     <%= form.select :filter_time_and_price, options_for_select(
         [
             ['All Time', 'all_time'],

@@ -15,25 +15,6 @@
   </div>
 
   <div class="field">
-  <%= f.label :province %><br />
-  <%= f.select :province, options_for_select([
-    'Alberta',
-    'British Columbia',
-    'Manitoba',
-    'New Brunswick',
-    'Newfoundland and Labrador',
-    'Northwest Territories',
-    'Nova Scotia',
-    'Nunavut',
-    'Ontario',
-    'Prince Edward Island',
-    'Quebec',
-    'Saskatchewan',
-    'Yukon'
-  ], selected: f.object.province), required: true %>
-</div>
-
-  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>

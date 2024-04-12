@@ -1,12 +1,13 @@
 class CartController < ApplicationController
   before_action :initialize_cart
 
+
   def add_to_cart
     dog = Dog.find(params[:dog_id])
     item = {
       dog_id: dog.id,
       name: dog.name,
-      # adoption_years: params[:adoption_years],
+      adoption_years: 1,
       breed: dog.breed,
       dog_type: dog.dog_type,
       price: dog.price,

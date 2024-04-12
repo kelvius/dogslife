@@ -21,6 +21,16 @@ Rails.application.routes.draw do
   get 'cart', to: 'cart#show', as: 'cart'
   delete 'cart/remove/:dog_id', to: 'cart#remove_from_cart', as: 'remove_from_cart'
 
+  # Payment routs
+  resources :payment, only: [:index]
+
+
+  scope '/payment' do
+    post 'create', to: 'payment#create', as: 'payment_create'
+    get 'success', to: 'payment#success', as: 'payment_success'
+    get 'cancel', to: 'paymeny#cancel', as: 'payment_cancel'
+  end
+
   # Active Admin Routes
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

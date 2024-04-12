@@ -73,4 +73,8 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
 end
+
+ENV["PUBLISHABLE_KEY"] = "pk_test_51P4oJG01qkELETWQsuhbgLCiyJOtEAsEvG33mgw2x7ax0YxmhZyIduTIYKR3d3snTLkzLoInf4Sk0MKRXFzB0ukg00K8Yn6Aoo"
+ENV["SECRET_KEY"] = "sk_test_51P4oJG01qkELETWQuwlEjbXv5jAemZtPeeV5K5CCvTpGOeydvmAZy1QSuMNDY34XisweG8uWVef5tWAYIJqJWjVV00yiQ1yj5h"
