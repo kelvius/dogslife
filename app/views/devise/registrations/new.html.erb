@@ -15,6 +15,14 @@
   </div>
 
   <div class="field">
+  <select class="form-select" name="user[province_id]" id="user">
+                    <% Province.all.each do |p| %>
+                      <option value="<%= p.id %>"><%= p.name %></option>
+                    <% end%>
+                  </select>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>

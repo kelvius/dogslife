@@ -16,19 +16,20 @@ Dog.destroy_all
 AdminUser.destroy_all
 User.destroy_all
 PageContent.destroy_all
+Province.destroy_all
 
 
 # Create an admin user for Active Admin
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') unless AdminUser.find_by(email: 'admin@example.com')
 
-# Seed a normal user account
-User.create!(
-  username: 'testuser',
-  email: 'user@example.com',
-  address: '330 poplar ave',
-  password: 'password',
-  password_confirmation: 'password'
-) unless User.find_by(email: 'user@example.com')
+# # Seed a normal user account
+# User.create!(
+#   username: 'testuser',
+#   email: 'user@example.com',
+#   address: '330 poplar ave',
+#   password: 'password',
+#   password_confirmation: 'password'
+# ) unless User.find_by(email: 'user@example.com')
 
 # Setup About and Contact page
 PageContent.create(title: 'About Us', content: 'Welcome to DogsLife, the ultimate haven for canine lovers and those looking to find a new furry friend to bring home. Established in 2018, DogsLife has been at the forefront of connecting dogs in need of a loving home with families and individuals who are ready to open their hearts to a new companion.
@@ -108,5 +109,22 @@ dog_types = ['Guard', 'Service', 'Herding', 'Companion']
     available_for_adoption: [true, false].sample,
     dog_type: dog_types.sample,  # Ensure your Dog model has a `dog_type` attribute
     price: price
+  )
+end
+
+### Scrape Provinces ###
+canada_provincial_taxes_file = Rails.root.join("db/CanadaProvincialTaxes.csv")
+puts "Loading Provinces from CSV file: CanadaProvincialTaxes.csv"
+# read the file
+canada_provincial_taxes_data = File.read(canada_provincial_taxes_file)
+canada_provincial_taxes = CSV.parse(canada_provincial_taxes_data, headers: true, encoding: "utf-8")
+
+canada_provincial_taxes.each do |p|
+  province = Province.create(
+    name: p["province"],
+    tax_type: p["type"],
+    pst: p["pst"],
+    gst: p["gst"],
+    hst: p["hst"]
   )
 end
