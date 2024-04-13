@@ -50,7 +50,7 @@ class PaymentController < ApplicationController
 
   def success
     # we took the customer's money
-    #session[:cart] = {}
+    session[:cart] = {}
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
 
