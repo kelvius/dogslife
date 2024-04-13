@@ -2,7 +2,7 @@
 
 <!-- For a single image -->
 <% if @user.image.attached? %>
-  <%= image_tag url_for(@user.image) %>
+  <%= image_tag url_for(@user.image), width: 200, height: 200 %>
 <% end %>
 <p><strong>Email:</strong> <%= @user.email %></p>
 <p><strong>Address:</strong> <%= @user.address %></p>
