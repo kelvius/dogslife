@@ -1,6 +1,7 @@
 class PaymentController < ApplicationController
   include CartHelper
   include PaymentHelper
+
   def index
     logger.debug(cart)
   end
