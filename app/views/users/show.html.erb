@@ -1,5 +1,9 @@
 <h1>User Profile</h1>
 
+<!-- For a single image -->
+<% if @user.image.attached? %>
+  <%= image_tag url_for(@user.image) %>
+<% end %>
 <p><strong>Email:</strong> <%= @user.email %></p>
 <p><strong>Address:</strong> <%= @user.address %></p>
 <p><strong>Province:</strong> <%= @user.province.try(:name) %></p>

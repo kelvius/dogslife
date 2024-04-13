@@ -1,23 +1,2 @@
-<h1>Edit User Profile</h1>
-
-<%= form_for @user do |f| %>
-
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.email_field :email %>
-  </div>
-
-  <div class="field">
-    <%= f.label :address %><br>
-    <%= f.text_field :address %>
-  </div>
-
-  <div class="field">
-    <%= f.label :province %><br>
-    <%= f.collection_select :province_id, Province.all, :id, :name, include_blank: true %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
+<h2>Edit User</h2>
+<%= render 'form', user: @user %>

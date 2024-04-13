@@ -1,5 +1,4 @@
-<!-- app/views/users/_form.html.erb -->
-<%= form_for(user) do |f| %>
+<%= form_for(user) do |form| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -13,26 +12,26 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= form.label :email %><br>
+    <%= form.email_field :email %>
   </div>
 
   <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email %>
+    <%= form.label :address %><br>
+    <%= form.text_field :address %>
   </div>
 
   <div class="field">
-    <%= f.label :address %>
-    <%= f.text_field :address %>
+    <%= form.label :province %><br>
+    <%= form.select :province_id, Province.all.collect { |p| [p.name, p.id] }, { include_blank: true } %>
   </div>
 
   <div class="field">
-    <%= f.label :province %>
-    <%= f.collection_select :province_id, Province.all, :id, :name, include_blank: true %>
+    <%= form.label :image %>
+    <%= form.file_field :image, accept: 'image/jpeg,image/gif,image/png' %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= form.submit user.new_record? ? 'Create' : 'Update' %>
   </div>
 <% end %>
