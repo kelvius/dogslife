@@ -123,8 +123,8 @@ canada_provincial_taxes.each do |p|
   province = Province.create(
     name: p["province"],
     tax_type: p["type"],
-    pst: p["pst"],
-    gst: p["gst"],
-    hst: p["hst"]
+    pst: p["pst"].to_f / 100,
+    gst: p["gst"].to_f / 100,
+    hst: p["hst"].to_f / 100
   )
 end

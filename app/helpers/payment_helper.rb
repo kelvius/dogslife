@@ -10,14 +10,19 @@ module PaymentHelper
   end
 
   def gst_charged
-    sub_total * 0.05
+    sub_total * current_user.province.gst
   end
 
   def pst_charged
-    sub_total * 0.07
+    sub_total * current_user.province.pst
+  end
+
+  def hst_charged
+    current_user.province.hst? ? current_user.province.hst * sub_total : 0
+
   end
 
   def total
-    sub_total + gst_charged + pst_charged
+    sub_total + gst_charged + pst_charged + hst_charged
   end
 end

@@ -18,6 +18,9 @@ class PaymentController < ApplicationController
 
     items.push(name: "GST", unit_amount: (gst_charged * 100).round, quantity: 1)
     items.push(name: "PST", unit_amount: (pst_charged * 100).round, quantity: 1)
+    if hst_charged > 0
+      items.push(name: "HST", unit_amount: (hst_charged * 100).round, quantity: 1)
+    end
 
 
     line_items = items.map do |item|
@@ -47,7 +50,7 @@ class PaymentController < ApplicationController
 
   def success
     # we took the customer's money
-    session[:cart] = {}
+    #session[:cart] = {}
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
 
