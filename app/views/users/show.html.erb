@@ -1,0 +1,7 @@
+<h1>User Profile</h1>
+
+<p><strong>Email:</strong> <%= @user.email %></p>
+<p><strong>Address:</strong> <%= @user.address %></p>
+<p><strong>Province:</strong> <%= @user.province.try(:name) %></p>
+
+<%= link_to 'Edit', edit_user_path(@user) %>  <!-- Assumes you have an edit action -->

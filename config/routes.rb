@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'users/show'
+  get 'users/update'
   get 'home/index'
   # Health Check Route
   get "up" => "rails/health#show", as: :rails_health_check
@@ -24,12 +26,14 @@ Rails.application.routes.draw do
   # Payment routs
   resources :payment, only: [:index]
 
-
   scope '/payment' do
     post 'create', to: 'payment#create', as: 'payment_create'
     get 'success', to: 'payment#success', as: 'payment_success'
     get 'cancel', to: 'paymeny#cancel', as: 'payment_cancel'
   end
+
+    # User routes
+    resources :users, only: [:show, :edit, :update]
 
   # Active Admin Routes
   devise_for :admin_users, ActiveAdmin::Devise.config
