@@ -38,8 +38,8 @@
           <% end %>
         </ul>
         <% if user_signed_in? %>
-          <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger", form_class: "form-inline my-2 my-lg-0" %>
-        <% end %>
+        <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-danger text-white", form_class: "form-inline my-2 my-lg-0" %>
+      <% end %>
       </div>
     </div>
   </nav>
