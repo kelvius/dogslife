@@ -28,7 +28,14 @@
             <%= link_to 'Sign Up', new_user_registration_path, class: "nav-link" %>
             <%= link_to 'Login', new_user_session_path, class: "nav-link" %>
           <% end %>
-          <%= link_to 'Cart', cart_path, class: "nav-link" %>
+          <!-- ... other nav items ... -->
+          <%# Cart link with a badge indicator for items in the cart %>
+          <%= link_to cart_path, class: "nav-link" do %>
+            Cart
+            <% if session[:cart_count].present? && session[:cart_count] > 0 %>
+              <span class="badge badge-pill badge-warning"><%= session[:cart_count] %></span>
+            <% end %>
+          <% end %>
         </ul>
         <% if user_signed_in? %>
           <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger", form_class: "form-inline my-2 my-lg-0" %>
