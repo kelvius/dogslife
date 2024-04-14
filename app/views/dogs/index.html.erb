@@ -1,63 +1,81 @@
-<h1>Available Dogs for Adoption</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Available Dogs for Adoption</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-4">Dogs for Adoption</h1>
 
-<%= form_with(url: dogs_path, method: :get) do |form| %>
-  <div>
-    <%= form.label :keyword, 'Search by keyword:' %>
-    <%= form.text_field :keyword, value: params[:keyword] %>
-    <%= form.label :dog_type, 'Dog Type:' %>
-    <%= form.select :dog_type, ['Guard', 'Service', 'Herding', 'Companion'], { include_blank: 'Any Type' }, value: params[:dog_type] %>
-  </div>
-
-  <div>
-    <%= form.label :dog_type, 'Dog Type:' %>
-    <%= button_tag 'All', name: 'dog_type', value: '', class: 'dog-type-button', data: { behavior: 'submit-on-click' } %>
-    <% ['Guard', 'Service', 'Herding', 'Companion'].each do |type| %>
-      <%= button_tag type, name: 'dog_type', value: type, class: 'dog_type_button', data: { behavior: 'submit-on-click' } %>
+    <%= form_with(url: dogs_path, method: :get, class: 'mb-5') do |form| %>
+      <div class="form-row">
+        <div class="col-lg-3 mb-3">
+          <%= form.label :keyword, 'Search by keyword:', class: 'form-label' %>
+          <%= form.text_field :keyword, value: params[:keyword], class: 'form-control' %>
+        </div>
+        <div class="col-lg-3 mb-3">
+          <%= form.label :dog_type, 'Dog Type:', class: 'form-label' %>
+          <%= form.select :dog_type, ['Guard', 'Service', 'Herding', 'Companion'], { include_blank: 'Any Type' }, { class: 'form-control', value: params[:dog_type] } %>
+        </div>
+      </div>
+      <!-- Dog Breed Buttons -->
+      <div class="form-row">
+        <div class="col-lg-6 mb-3">
+          <%= label_tag :dog_breed, 'Quick Select Dog Breed:', class: 'd-block form-label' %>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <%= button_tag 'All', name: 'dog_breed', value: '', class: 'btn btn-secondary text-white', data: { behavior: 'submit-on-click' } %>
+            <% ['Guard', 'Service', 'Herding', 'Companion'].each do |breed| %>
+              <%= button_tag breed, name: 'dog_breed', value: breed, class: 'btn btn-outline-primary text-white', data: { behavior: 'submit-on-click' } %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= form.label :available_for_adoption, 'Available for Adoption:', class: 'form-label' %>
+        <%= form.select :available_for_adoption, [['Yes', true], ['No', false]], { prompt: 'Select Availability', class: 'form-control' } %>
+      </div>
+      <div class="form-group">
+        <%= form.label :filter_time_and_price, 'Filters:', class: 'form-label' %>
+        <%= form.select :filter_time_and_price, options_for_select(
+            [
+                ['All Time', 'all_time'],
+                ['New Arrivals', 'new_arrivals'],
+                ['Recently Updated', 'recently_updated'],
+                ['Free Dogs', 'free_dogs']
+            ],
+            selected: params[:filter_time_and_price]
+        ), class: 'form-control' %>
+      </div>
+      <%= form.submit "Search", class: 'btn btn-primary' %>
     <% end %>
-  </div>
 
-  <div>
-    <%= form.label :available_for_adoption, 'Available for Adoption:' %>
-    <%= form.select :available_for_adoption, [['Yes', true], ['No', false]], prompt: 'Select Availability' %>
-  </div>
-
-  <div>
-    <%= form.label :filter_time_and_price, 'Filters:' %>
-    <%= form.select :filter_time_and_price, options_for_select(
-        [
-            ['All Time', 'all_time'],
-            ['New Arrivals', 'new_arrivals'],
-            ['Recently Updated', 'recently_updated'],
-            ['Free Dogs', 'free_dogs']
-        ],
-        selected: params[:filter_time_and_price]
-    ) %>
-  </div>
-
-  <%= form.submit "Search" %>
-<% end %>
-
-<% if @dogs.any? %>
-  <ul>
-    <% @dogs.each do |dog| %>
-      <li>
-        <%= link_to dog.name, dog_path(dog) %>
-        <p><%= dog.breed %> - <%= dog.dog_type %></p>
-        <p>Price: $<%= dog.price %></p>
-        <p>Available for adoption: <%= dog.available_for_adoption ? 'Yes' : 'No' %></p>
-        <%= image_tag(dog.photo_url, alt: dog.name, width: 200, height: 200) if dog.photo_url.present? %>
-
-        <% if dog.available_for_adoption %>
-          <%= form_with(url: add_to_cart_path, method: :post) do |f| %>
-            <%= f.hidden_field :dog_id, value: dog.id %>
-            <%= f.submit "Add to Cart" %>
-          <% end %>
+    <% if @dogs.any? %>
+      <div class="list-group">
+        <% @dogs.each do |dog| %>
+          <a href="<%= dog_path(dog) %>" class="list-group-item list-group-item-action">
+            <div class="media align-items-center">
+              <%= image_tag(dog.photo_url, alt: dog.name, class: 'mr-3 rounded', style: 'width: 100px; height: 100px;') if dog.photo_url.present? %>
+              <div class="media-body">
+                <h5 class="mt-0"><%= dog.name %></h5>
+                <p><%= dog.breed %> - <%= dog.dog_type %></p>
+                <p>Price: $<%= dog.price %></p>
+                <p>Available for adoption: <%= dog.available_for_adoption ? 'Yes' : 'No' %></p>
+              </div>
+              <% if dog.available_for_adoption %>
+                <%= form_with(url: add_to_cart_path, method: :post) do |f| %>
+                  <%= f.hidden_field :dog_id, value: dog.id %>
+                  <%= f.submit "Add to Cart", class: 'btn btn-info' %>
+                <% end %>
+              <% end %>
+            </div>
+          </a>
         <% end %>
-      </li>
+      </div>
+      <%= paginate @dogs, class: 'pagination justify-content-center mt-4' %>
+    <% else %>
+      <p>No dogs found matching your search criteria.</p>
     <% end %>
-  </ul>
-
-  <%= paginate @dogs %>
-<% else %>
-  <p>No dogs found matching your search criteria.</p>
-<% end %>
+  </div>
+</body>
+</html>

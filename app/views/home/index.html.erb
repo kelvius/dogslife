@@ -3,19 +3,30 @@
 <head>
   <title>DogsLife</title>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
+  <!-- Add Bootstrap CDN if it's not included in your 'application' stylesheet -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
-  <div class="container">
-    <h1>Welcome to DogsLife</h1>
-    <p>This is the home page for authenticated users.</p>
+  <div class="container mt-5 text-center">
+    <h1 class="display-4">Welcome to DogsLife</h1>
+    <p class="lead">This is the home page for authenticated users.</p>
 
     <% if user_signed_in? %>
-      <p>Thank you for logging in, <%= current_user.email %>.</p>
+      <div class="alert alert-success" role="alert">
+        <p>Thank you for logging in, <%= current_user.email %>.</p>
+      </div>
     <% else %>
-      <p>Please sign in to view available dogs and more.</p>
+      <div class="alert alert-info" role="alert">
+        <p>Please sign in to view available dogs and more.</p>
+      </div>
     <% end %>
   </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
