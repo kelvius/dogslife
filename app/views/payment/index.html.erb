@@ -1,8 +1,8 @@
 <div class="container mt-5">
-  <h2 class="mb-3">Payment Summary</h2>
+  <h2 class="mb-3 text-center">Payment Summary</h2>
   <div class="table-responsive">
-    <table class="table">
-      <thead class="thead-light">
+    <table class="table table-hover shadow-sm">
+      <thead class="thead-dark">
         <tr>
           <th>Name</th>
           <th>Breed</th>
@@ -17,7 +17,7 @@
             <td><strong><%= item["name"] %></strong></td>
             <td><%= item["breed"] %></td>
             <td><%= item["dog_type"] %></td>
-            <td>$<%= item["price"] %></td>
+            <td>$<%= item["price"].to_d * item["adoption_years"].to_i %></td>
             <td><%= item["adoption_years"] %> year(s)</td>
           </tr>
         <% end %>
@@ -25,18 +25,18 @@
     </table>
   </div>
 
-  <div class="row">
-    <div class="col-md-4 offset-md-8">
-      <ul class="list-group">
-        <li class="list-group-item">Subtotal: $<%= sub_total %></li>
-        <li class="list-group-item">GST: $<%= gst_charged %></li>
-        <li class="list-group-item">PST: $<%= pst_charged %></li>
-        <li class="list-group-item list-group-item-secondary">Total: $<%= total %></li>
+  <div class="row justify-content-end">
+    <div class="col-md-4">
+      <ul class="list-group list-group-flush shadow">
+        <li class="list-group-item"><strong>Subtotal:</strong> $<%= sub_total %></li>
+        <li class="list-group-item"><strong>GST:</strong> $<%= gst_charged %></li>
+        <li class="list-group-item"><strong>PST:</strong> $<%= pst_charged %></li>
+        <li class="list-group-item list-group-item-primary"><strong>Total:</strong> $<%= total %></li>
       </ul>
     </div>
   </div>
 
-  <%= form_tag(payment_create_path, method: :post, class: 'mt-3') do %>
+  <%= form_tag(payment_create_path, method: :post, class: 'mt-4') do %>
     <%= button_tag(type: 'submit', class: 'btn btn-primary btn-lg btn-block') do %>
       Proceed to Payment
     <% end %>

@@ -7,7 +7,6 @@
 <body>
   <div class="container mt-5">
     <h1 class="mb-4">Shopping Cart</h1>
-
     <% if @cart.present? %>
       <div class="card">
         <ul class="list-group list-group-flush">
@@ -20,7 +19,10 @@
                 <div class="col-md-6">
                   <strong><%= item["name"] %></strong> - <%= item["breed"] %> - <%= item["dog_type"] %> <br>
                   Price: $<%= item["price"] %> <br>
-                  Adoption Duration: <%= number_field_tag :adoption_years, 1, in: 1..10, min: 1, step: 1 %> year(s)
+                  <%= form_with url: update_adoption_duration_path(dog_id: item["dog_id"]), method: :patch, local: true do |form| %>
+                    Adoption Duration: <%= form.number_field :adoption_years, value: item["adoption_years"], in: 1..10, min: 1, step: 1 %> year(s)
+                    <%= form.submit 'Update', class: 'btn btn-info' %>
+                  <% end %>
                 </div>
                 <div class="col-md-3 d-flex align-items-center">
                   <%= button_to 'Remove from Cart', remove_from_cart_path(dog_id: item["dog_id"]), method: :delete, class: 'btn btn-danger' %>

@@ -2,8 +2,8 @@ module PaymentHelper
   def sub_total
     sub = 0
 
-    cart.each do |dog|
-      sub += dog["price"].to_d
+    cart.each do |item|
+      sub += item["price"].to_d * item["adoption_years"].to_i
     end
 
     sub
@@ -19,7 +19,6 @@ module PaymentHelper
 
   def hst_charged
     current_user.province.hst? ? current_user.province.hst * sub_total : 0
-
   end
 
   def total

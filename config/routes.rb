@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   post 'cart/add', to: 'cart#add_to_cart', as: 'add_to_cart'
   get 'cart', to: 'cart#show', as: 'cart'
   delete 'cart/remove/:dog_id', to: 'cart#remove_from_cart', as: 'remove_from_cart'
+  # config/routes.rb
+patch 'cart/update/:dog_id', to: 'cart#update_adoption_duration', as: 'update_adoption_duration'
+
 
   # Payment routs
   resources :payment, only: [:index]

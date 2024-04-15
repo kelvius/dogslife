@@ -10,11 +10,13 @@ class PaymentController < ApplicationController
   end
 
   def create
-    items =[];
+    items = [];
 
     cart.each do |item|
-      logger.debug("#{item["price"]} price")
-      items.push(name: item["name"], unit_amount: (item["price"].to_d * 100).round, quantity: 1)
+      adoption_years = item["adoption_years"].to_i
+      total_price_for_duration = item["price"].to_d * adoption_years
+      logger.debug("#{total_price_for_duration} total price for #{adoption_years} year(s)")
+      items.push(name: item["name"], unit_amount: (total_price_for_duration * 100).round, quantity: 1)
     end
 
     items.push(name: "GST", unit_amount: (gst_charged * 100).round, quantity: 1)
@@ -23,14 +25,11 @@ class PaymentController < ApplicationController
       items.push(name: "HST", unit_amount: (hst_charged * 100).round, quantity: 1)
     end
 
-
     line_items = items.map do |item|
       {
-        price_data:
-        {
+        price_data: {
           currency: 'cad',
-          product_data:
-          {
+          product_data: {
             name: item[:name],
           },
           unit_amount: item[:unit_amount],
@@ -39,25 +38,22 @@ class PaymentController < ApplicationController
       }
     end
 
-   @session = Stripe::Checkout::Session.create(
-     payment_method_types: ["card"],
-     success_url: payment_success_url + "?session_id={CHECKOUT_SESSION_ID}",
-     cancel_url: payment_cancel_url,
-     mode: 'payment',
-     line_items: line_items
-   )
-   redirect_to @session.url, allow_other_host: true
+    @session = Stripe::Checkout::Session.create(
+      payment_method_types: ["card"],
+      success_url: payment_success_url + "?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: payment_cancel_url,
+      mode: 'payment',
+      line_items: line_items
+    )
+    redirect_to @session.url, allow_other_host: true
   end
 
   def success
-    # we took the customer's money
     session[:cart] = {}
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
-
   end
 
   def cancel
-    # something went wrong with payment!
   end
 end

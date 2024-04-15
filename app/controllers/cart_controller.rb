@@ -32,6 +32,21 @@ class CartController < ApplicationController
     redirect_to cart_path, notice: 'Dog removed from cart.'
   end
 
+  def update_adoption_duration
+    dog_id = params[:dog_id].to_i
+    adoption_years = params[:adoption_years].to_i
+
+    session[:cart].each do |item|
+      if item["dog_id"] == dog_id
+        item["adoption_years"] = adoption_years
+        break  # Once the item is found and updated, exit the loop
+      end
+    end
+
+    update_cart_count  # Optional, if you want to trigger any actions when the cart is updated
+    redirect_to cart_path, notice: 'Adoption duration updated'
+  end
+
   private
 
   def initialize_cart
@@ -43,4 +58,6 @@ class CartController < ApplicationController
     def update_cart_count
       session[:cart_count] = session[:cart].size
     end
+
+
 end
