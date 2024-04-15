@@ -14,6 +14,7 @@ class CartController < ApplicationController
       photo_url: dog.photo_url
     }
     session[:cart] << item
+    update_cart_count
     redirect_to cart_path, notice: 'Added to cart'
   end
 
@@ -27,6 +28,7 @@ class CartController < ApplicationController
     puts "Removing from cart: #{params.inspect}"
     dog_id = params[:dog_id].to_i
     session[:cart].reject! { |item| item["dog_id"].to_s == params[:dog_id] }
+    update_cart_count
     redirect_to cart_path, notice: 'Dog removed from cart.'
   end
 
@@ -36,4 +38,9 @@ class CartController < ApplicationController
     Rails.logger.debug "Initializing cart with session[:cart] = #{session[:cart].inspect}"
     session[:cart] ||= []
   end
+
+    # Update the cart count in the session
+    def update_cart_count
+      session[:cart_count] = session[:cart].size
+    end
 end

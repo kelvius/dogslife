@@ -1,31 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>DogsLife</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>DogsLife</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <style>
+    /* Custom CSS for Navbar Links */
+    .navbar-nav .nav-link {
+      text-decoration: none; /* Removes underline from default state */
+    }
+    .navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus {
+      text-decoration: underline; /* Adds underline on hover and focus */
+    }
+    .navbar-nav .nav-link.active {
+      text-decoration: underline; /* Underline active link */
+      font-weight: bold; /* Makes active link bolder */
+    }
+  </style>
+</head>
+<body>
+  <!-- Bootstrap Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <%= link_to 'DogsLife', root_path, class: "navbar-brand" %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+          <%= link_to 'Home', root_path, class: "nav-link #{'active' if current_page?(root_path)}" %>
+          <%= link_to 'About Us', about_path, class: "nav-link #{'active' if current_page?(about_path)}" %>
+          <%= link_to 'Contact Us', contact_path, class: "nav-link #{'active' if current_page?(contact_path)}" %>
+          <% if user_signed_in? %>
+            <%= link_to 'My Profile', user_path(current_user), class: "nav-link #{'active' if current_page?(user_path(current_user))}" %>
+            <%= link_to 'Adopt a Dog', dogs_path, class: "nav-link #{'active' if current_page?(dogs_path)}" %>
+          <% else %>
+            <%= link_to 'Sign Up', new_user_registration_path, class: "nav-link #{'active' if current_page?(new_user_registration_path)}" %>
+            <%= link_to 'Login', new_user_session_path, class: "nav-link #{'active' if current_page?(new_user_session_path)}" %>
+          <% end %>
+          <%= link_to cart_path, class: "nav-link #{'active' if current_page?(cart_path)}" do %>
+            Cart
+            <% if session[:cart_count].present? && session[:cart_count] > 0 %>
+              <span class="badge badge-pill badge-warning"><%= session[:cart_count] %></span>
+            <% end %>
+          <% end %>
+        </ul>
+        <% if user_signed_in? %>
+          <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-danger text-white", form_class: "form-inline my-2 my-lg-0" %>
+        <% end %>
+      </div>
+    </div>
+  </nav>
 
-  </head>
-
-  <header>
-  <%= link_to 'Home', root_path %>
-  <%= link_to 'About Us', about_path %>
-  <%= link_to 'Contact Us', contact_path %>
-  <% if user_signed_in? %>
-    <%= link_to 'My Profile', user_path(current_user)  %>
-    <%= link_to 'Adopt a Dog', dogs_path %>
-  <% else %>
-    <%= link_to 'Sign Up', new_user_registration_path %>
-    <%= link_to 'Login', new_user_session_path %>
-  <% end %>
-  <%= link_to 'Cart', cart_path %>
-  <%= button_to 'Logout', destroy_user_session_path, method: :delete, form_class: "inline" %>
-</header>
-
-  <body>
+  <!-- Main Content Area -->
+  <div class="container mt-3">
     <%= yield %>
-  </body>
+  </div>
+</body>
+
+<!-- Footer -->
+<footer class="footer text-center mt-4">
+  <small>Privacy Policy • Terms of Service</small>
+</footer>
 </html>

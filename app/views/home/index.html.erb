@@ -3,19 +3,32 @@
 <head>
   <title>DogsLife</title>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
-  <div class="container">
-    <h1>Welcome to DogsLife</h1>
-    <p>This is the home page for authenticated users.</p>
-
-    <% if user_signed_in? %>
-      <p>Thank you for logging in, <%= current_user.email %>.</p>
-    <% else %>
-      <p>Please sign in to view available dogs and more.</p>
-    <% end %>
+  <div class="welcome-banner text-center d-flex justify-content-center align-items-center">
+    <div>
+      <h1>Welcome to DogsLife</h1>
+      <p class="fs-5">Find your perfect canine companion.</p>
+    </div>
   </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <% if user_signed_in? %>
+          <div class="alert alert-success alert-custom text-center" role="alert">
+            <p>Thank you for logging in, <%= current_user.email %>.</p>
+          </div>
+        <% else %>
+          <div class="alert alert-info alert-custom text-center" role="alert">
+            <p>Please sign in to view available dogs and more.</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
