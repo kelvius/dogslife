@@ -7,6 +7,20 @@
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <style>
+    /* Custom CSS for Navbar Links */
+    .navbar-nav .nav-link {
+      text-decoration: none; /* Removes underline from default state */
+    }
+    .navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus {
+      text-decoration: underline; /* Adds underline on hover and focus */
+    }
+    .navbar-nav .nav-link.active {
+      text-decoration: underline; /* Underline active link */
+      font-weight: bold; /* Makes active link bolder */
+    }
+  </style>
 </head>
 <body>
   <!-- Bootstrap Navbar -->
@@ -18,19 +32,17 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
-          <%= link_to 'Home', root_path, class: "nav-link" %>
-          <%= link_to 'About Us', about_path, class: "nav-link" %>
-          <%= link_to 'Contact Us', contact_path, class: "nav-link" %>
+          <%= link_to 'Home', root_path, class: "nav-link #{'active' if current_page?(root_path)}" %>
+          <%= link_to 'About Us', about_path, class: "nav-link #{'active' if current_page?(about_path)}" %>
+          <%= link_to 'Contact Us', contact_path, class: "nav-link #{'active' if current_page?(contact_path)}" %>
           <% if user_signed_in? %>
-            <%= link_to 'My Profile', user_path(current_user), class: "nav-link" %>
-            <%= link_to 'Adopt a Dog', dogs_path, class: "nav-link" %>
+            <%= link_to 'My Profile', user_path(current_user), class: "nav-link #{'active' if current_page?(user_path(current_user))}" %>
+            <%= link_to 'Adopt a Dog', dogs_path, class: "nav-link #{'active' if current_page?(dogs_path)}" %>
           <% else %>
-            <%= link_to 'Sign Up', new_user_registration_path, class: "nav-link" %>
-            <%= link_to 'Login', new_user_session_path, class: "nav-link" %>
+            <%= link_to 'Sign Up', new_user_registration_path, class: "nav-link #{'active' if current_page?(new_user_registration_path)}" %>
+            <%= link_to 'Login', new_user_session_path, class: "nav-link #{'active' if current_page?(new_user_session_path)}" %>
           <% end %>
-          <!-- ... other nav items ... -->
-          <%# Cart link with a badge indicator for items in the cart %>
-          <%= link_to cart_path, class: "nav-link" do %>
+          <%= link_to cart_path, class: "nav-link #{'active' if current_page?(cart_path)}" do %>
             Cart
             <% if session[:cart_count].present? && session[:cart_count] > 0 %>
               <span class="badge badge-pill badge-warning"><%= session[:cart_count] %></span>
@@ -38,8 +50,8 @@
           <% end %>
         </ul>
         <% if user_signed_in? %>
-        <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-danger text-white", form_class: "form-inline my-2 my-lg-0" %>
-      <% end %>
+          <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-danger text-white", form_class: "form-inline my-2 my-lg-0" %>
+        <% end %>
       </div>
     </div>
   </nav>
