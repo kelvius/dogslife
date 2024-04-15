@@ -1,0 +1,30 @@
+body {
+  background-image: url(asset-path('background.jpg')); /* Link to your image stored in app/assets/images */
+  background-size: cover; /* Ensures the background covers the entire page */
+  height: 100%; /* Minimum height to 100% of the viewport */
+  width: 100%; /* Minimum width to 100% of the viewport */
+  margin: 0; /* Reset margin */
+  padding: 0; /* Reset padding */
+}
+
+.footer {
+  position: fixed; /* Fixes the position relative to the viewport */
+  left: 0;
+  bottom: 0;
+  width: 100%; /* Footer will span the width of the viewport */
+  background-color: #f5f5f5; /* Sets a background color, change as needed */
+  color: black; /* Sets the text color, change as needed */
+  text-align: center;
+  padding: 10px 0; /* Add padding to ensure the text doesn't stick to the edges */
+}
+
+h1 {
+  color: #ffffff; /* White color for the main heading */
+  text-shadow: 2px 2px 4px #000000; /* Soft brown shadow for depth */
+}
+
+p {
+  color: #3e2c1a; /* White color for the paragraph text */
+  text-shadow: 1px 1px 3px #ffffff; /* Slightly lighter shadow for subtlety */
+  font-weight: 800;
+}
