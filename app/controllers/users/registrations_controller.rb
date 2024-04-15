@@ -1,11 +1,15 @@
+# frozen_string_literal: true
+
 # app/controllers/users/registrations_controller.rb
-class Users::RegistrationsController < Devise::RegistrationsController
-  # Other controller actions...
+module Users
+  class RegistrationsController < Devise::RegistrationsController
+    # Other controller actions...
 
-  protected
+    protected
 
-  # Prevent automatic sign-in after sign-up
-  def sign_up(resource_name, resource)
-    true
+    # Prevent automatic sign-in after sign-up
+    def sign_up(_resource_name, _resource)
+      true
+    end
   end
 end

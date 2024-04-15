@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module PaymentHelper
   def sub_total
     sub = 0
 
     cart.each do |item|
-      sub += item["price"].to_d * item["adoption_years"].to_i
+      sub += item['price'].to_d * item['adoption_years'].to_i
     end
 
     sub

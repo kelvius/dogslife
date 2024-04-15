@@ -1,0 +1,116 @@
+require: rubocop-rails
+
+Style/MixinUsage:
+  Enabled: false
+  Exclude:
+    - 'config/initializers/paypal.rb'
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'bin/*'
+    - 'vendor/**/*'
+  SuggestExtensions: false
+
+Rails:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Layout/LineLength:
+  Max: 500
+  Exclude:
+    - db/seeds.rb
+
+Metrics/ClassLength:
+  Max: 320
+
+Metrics/AbcSize:
+  Max: 40
+
+Metrics/CyclomaticComplexity:
+  Max: 12
+
+Metrics/PerceivedComplexity:
+  Max: 12
+
+Lint/UselessAssignment:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'config/environments/development.rb'
+    - 'config/routes.rb'
+
+Layout/EndOfLine:
+  Enabled: false
+
+Rails/BulkChangeTable:
+  Exclude:
+    - 'db/migrate/*.rb'
+
+Rails/NotNullColumn:
+  Exclude:
+    - 'db/migrate/*.rb'
+
+Rails/ThreeStateBooleanColumn:
+  Exclude:
+    - 'db/migrate/*.rb'
+
+Metrics/MethodLength:
+  Max: 40
+  Exclude:
+    - 'db/migrate/*.rb'

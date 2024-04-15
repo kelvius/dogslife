@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   get 'users/show'
   get 'users/update'
   get 'home/index'
   # Health Check Route
-  get "up" => "rails/health#show", as: :rails_health_check
+  get 'up' => 'rails/health#show', as: :rails_health_check
 
-  #Route for static pages
+  # Route for static pages
   get 'about', to: 'pages#about'
   get 'contact', to: 'pages#contact'
 
@@ -23,7 +25,7 @@ Rails.application.routes.draw do
   get 'cart', to: 'cart#show', as: 'cart'
   delete 'cart/remove/:dog_id', to: 'cart#remove_from_cart', as: 'remove_from_cart'
   # config/routes.rb
-patch 'cart/update/:dog_id', to: 'cart#update_adoption_duration', as: 'update_adoption_duration'
+  patch 'cart/update/:dog_id', to: 'cart#update_adoption_duration', as: 'update_adoption_duration'
 
 
   # Payment routs
@@ -35,17 +37,17 @@ patch 'cart/update/:dog_id', to: 'cart#update_adoption_duration', as: 'update_ad
     get 'cancel', to: 'paymeny#cancel', as: 'payment_cancel'
   end
 
-    # User routes
-    resources :users, only: [:show, :edit, :update]
+  # User routes
+  resources :users, only: %i[show edit update]
 
   # Active Admin Routes
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
   # Dog Routes
-  resources :dogs, only: [:index, :show]do
-  post 'add_to_cart', on: :member
-end
+  resources :dogs, only: %i[index show] do
+    post 'add_to_cart', on: :member
+  end
 
   # You can define the root path route if needed
   root to: 'home#index'

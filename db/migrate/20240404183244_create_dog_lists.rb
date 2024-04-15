@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateDogLists < ActiveRecord::Migration[7.1]
   def change
     create_table :dog_lists do |t|

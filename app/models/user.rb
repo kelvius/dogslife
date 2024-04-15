@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -6,15 +8,14 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_one :profile
-  has_many :payments
+  has_one :profile, dependent: :destroy
+  has_many :payments, dependent: :destroy
   has_many :reviews, through: :dogs
   has_one_attached :image
   # def self.ransackable_attributes(auth_object = nil)
   #   super + ['custom_method']
   # end
-    def self.ransackable_attributes(auth_object = nil)
-      ["address", "contact_number", "created_at", "email", "encrypted_password", "id", "id_value", "password_digest", "payment_type", "remember_created_at", "reset_password_sent_at", "reset_password_token", "updated_at", "username"]
-    end
-
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[address contact_number created_at email encrypted_password id id_value password_digest payment_type remember_created_at reset_password_sent_at reset_password_token updated_at username]
+  end
 end

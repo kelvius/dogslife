@@ -1,14 +1,12 @@
+# frozen_string_literal: true
+
 class AddDeviseToUsers < ActiveRecord::Migration[7.1]
   def self.up
     change_table :users do |t|
       # Only add email and encrypted_password if they don't already exist
-      unless column_exists?(:users, :email)
-        t.string :email, null: false, default: ""
-      end
+      t.string :email, null: false, default: '' unless column_exists?(:users, :email)
 
-      unless column_exists?(:users, :encrypted_password)
-        t.string :encrypted_password, null: false, default: ""
-      end
+      t.string :encrypted_password, null: false, default: '' unless column_exists?(:users, :encrypted_password)
 
       # Add the rest of the Devise columns
       t.string   :reset_password_token
@@ -20,13 +18,11 @@ class AddDeviseToUsers < ActiveRecord::Migration[7.1]
     end
 
     # Only add indexes if they don't already exist
-    unless index_exists?(:users, :email)
-      add_index :users, :email, unique: true
-    end
+    add_index :users, :email, unique: true unless index_exists?(:users, :email)
 
-    unless index_exists?(:users, :reset_password_token)
-      add_index :users, :reset_password_token, unique: true
-    end
+    return if index_exists?(:users, :reset_password_token)
+
+    add_index :users, :reset_password_token, unique: true
   end
 
   def self.down

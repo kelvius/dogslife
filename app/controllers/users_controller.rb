@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update]
+  before_action :set_user, only: %i[show update]
 
   def show
     @user = User.find(params[:id])
@@ -26,6 +28,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :address, :province_id, :image)  # Add other attributes as needed
+    params.require(:user).permit(:name, :email, :address, :province_id, :image) # Add other attributes as needed
   end
 end

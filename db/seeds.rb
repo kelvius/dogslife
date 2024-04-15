@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should ensure the existence of records required to run the application in every environment (production,
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
@@ -83,14 +85,14 @@ breeds = breeds_data['message'].keys
 
 # Sample stories
 stories = [
-  "A friendly and energetic dog looking for a loving home.",
-  "Gentle and affectionate, great with kids and other pets.",
-  "Loyal and intelligent, well-trained and eager to please.",
-  "Loves to play and cuddle, perfect for any family.",
-  "Strong and courageous, excellent guard dog."
+  'A friendly and energetic dog looking for a loving home.',
+  'Gentle and affectionate, great with kids and other pets.',
+  'Loyal and intelligent, well-trained and eager to please.',
+  'Loves to play and cuddle, perfect for any family.',
+  'Strong and courageous, excellent guard dog.'
 ]
 
-dog_types = ['Guard', 'Service', 'Herding', 'Companion']
+dog_types = %w[Guard Service Herding Companion]
 
 # Seed 50 random dogs
 100.times do
@@ -99,32 +101,32 @@ dog_types = ['Guard', 'Service', 'Herding', 'Companion']
   image_response = URI.open("https://dog.ceo/api/breed/#{breed}/images/random").read
   image_data = JSON.parse(image_response)
   photo_url = image_data['message']
-  price = rand(200..1000)  # Generate a random price between 200 and 1000
+  price = rand(200..1000) # Generate a random price between 200 and 1000
 
   Dog.create!(
     name: Faker::Creature::Dog.name,
     breed: breed.capitalize,
     story: stories.sample,
-    photo_url: photo_url,
+    photo_url:,
     available_for_adoption: [true, false].sample,
-    dog_type: dog_types.sample,  # Ensure your Dog model has a `dog_type` attribute
-    price: price
+    dog_type: dog_types.sample, # Ensure your Dog model has a `dog_type` attribute
+    price:
   )
 end
 
 ### Scrape Provinces ###
-canada_provincial_taxes_file = Rails.root.join("db/CanadaProvincialTaxes.csv")
-puts "Loading Provinces from CSV file: CanadaProvincialTaxes.csv"
+canada_provincial_taxes_file = Rails.root.join('db/CanadaProvincialTaxes.csv')
+Rails.logger.debug 'Loading Provinces from CSV file: CanadaProvincialTaxes.csv'
 # read the file
 canada_provincial_taxes_data = File.read(canada_provincial_taxes_file)
-canada_provincial_taxes = CSV.parse(canada_provincial_taxes_data, headers: true, encoding: "utf-8")
+canada_provincial_taxes = CSV.parse(canada_provincial_taxes_data, headers: true, encoding: 'utf-8')
 
 canada_provincial_taxes.each do |p|
   province = Province.create(
-    name: p["province"],
-    tax_type: p["type"],
-    pst: p["pst"].to_f / 100,
-    gst: p["gst"].to_f / 100,
-    hst: p["hst"].to_f / 100
+    name: p['province'],
+    tax_type: p['type'],
+    pst: p['pst'].to_f / 100,
+    gst: p['gst'].to_f / 100,
+    hst: p['hst'].to_f / 100
   )
 end

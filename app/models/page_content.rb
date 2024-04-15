@@ -1,6 +1,7 @@
-class PageContent < ApplicationRecord
+# frozen_string_literal: true
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["title", "content", "page_type", "created_at", "updated_at"]
+class PageContent < ApplicationRecord
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title content page_type created_at updated_at]
   end
 end

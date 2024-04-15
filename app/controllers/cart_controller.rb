@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CartController < ApplicationController
   before_action :initialize_cart
 
@@ -19,15 +21,15 @@ class CartController < ApplicationController
   end
 
   def show
-    Rails.logger.debug "Cart contents before setting @cart: #{session[:cart].inspect}"
+    Rails.logger.debug { "Cart contents before setting @cart: #{session[:cart].inspect}" }
     @cart = session[:cart]
-    Rails.logger.debug "Cart contents after setting @cart: #{@cart.inspect}"
+    Rails.logger.debug { "Cart contents after setting @cart: #{@cart.inspect}" }
   end
 
   def remove_from_cart
-    puts "Removing from cart: #{params.inspect}"
+    Rails.logger.debug { "Removing from cart: #{params.inspect}" }
     dog_id = params[:dog_id].to_i
-    session[:cart].reject! { |item| item["dog_id"].to_s == params[:dog_id] }
+    session[:cart].reject! { |item| item['dog_id'].to_s == params[:dog_id] }
     update_cart_count
     redirect_to cart_path, notice: 'Dog removed from cart.'
   end
@@ -37,27 +39,25 @@ class CartController < ApplicationController
     adoption_years = params[:adoption_years].to_i
 
     session[:cart].each do |item|
-      if item["dog_id"] == dog_id
-        item["adoption_years"] = adoption_years
-        break  # Once the item is found and updated, exit the loop
+      if item['dog_id'] == dog_id
+        item['adoption_years'] = adoption_years
+        break # Once the item is found and updated, exit the loop
       end
     end
 
-    update_cart_count  # Optional, if you want to trigger any actions when the cart is updated
+    update_cart_count # Optional, if you want to trigger any actions when the cart is updated
     redirect_to cart_path, notice: 'Adoption duration updated'
   end
 
   private
 
   def initialize_cart
-    Rails.logger.debug "Initializing cart with session[:cart] = #{session[:cart].inspect}"
+    Rails.logger.debug { "Initializing cart with session[:cart] = #{session[:cart].inspect}" }
     session[:cart] ||= []
   end
 
-    # Update the cart count in the session
-    def update_cart_count
-      session[:cart_count] = session[:cart].size
-    end
-
-
+  # Update the cart count in the session
+  def update_cart_count
+    session[:cart_count] = session[:cart].size
+  end
 end

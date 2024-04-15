@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register PageContent do
   permit_params :title, :content, :page_type
 
@@ -15,10 +17,9 @@ ActiveAdmin.register PageContent do
   form do |f|
     f.inputs do
       f.input :title
-      f.input :page_type, as: :select, collection: ['about', 'contact']
+      f.input :page_type, as: :select, collection: %w[about contact]
       f.input :content, as: :text
     end
     f.actions
   end
-
 end
